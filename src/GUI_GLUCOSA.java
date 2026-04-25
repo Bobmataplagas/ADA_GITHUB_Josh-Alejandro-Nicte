@@ -5,12 +5,16 @@ import java.util.ArrayList;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.JToolBar;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JComboBox;
 import javax.swing.JButton;
+import java.awt.Font;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 
 
@@ -22,6 +26,7 @@ public class GUI_GLUCOSA extends JFrame {
 	ArrayList<paciente> lista = new ArrayList<paciente>();
 	private JTextField textField;
 	private JTextField textField_1;
+	private JTextField textField_2;
 	public class paciente {
 		String nombre;
 		int valor;
@@ -105,7 +110,7 @@ public class GUI_GLUCOSA extends JFrame {
 		panel.add(lblmg);
 		
 		JComboBox<Integer> comboBox = new JComboBox<Integer>();
-		comboBox.setSelectedIndex(23);
+		
 		comboBox.setBounds(121, 106, 86, 22);
 		panel.add(comboBox);
 		
@@ -113,9 +118,40 @@ public class GUI_GLUCOSA extends JFrame {
 		btnGuardar.setBounds(118, 197, 89, 23);
 		panel.add(btnGuardar);
 		
+		JLabel lblNewLabel = new JLabel("Buscador:");
+		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 12));
+		lblNewLabel.setBounds(28, 11, 71, 14);
+		panel.add(lblNewLabel);
+		
+		JButton btnNewButton = new JButton("Buscar");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String nombreBuscar = textField_2.getText().toLowerCase();
+				String resultados = "";
+				for (paciente i : lista) {
+					if (i.nombre.toLowerCase().contains(nombreBuscar)) {
+						resultados += i.nombre + " " + i.valor + " " + i.fecha + "\n";
+					}
+					
+				}
+				if (resultados.isEmpty()) {
+					JOptionPane.showMessageDialog(null, "No se encontraron resultados");
+				} else {
+					JOptionPane.showMessageDialog(null, resultados);
+				}
+			
+			}
+		});
+		btnNewButton.setBounds(293, 8, 88, 22);
+		panel.add(btnNewButton);
+		
+		textField_2 = new JTextField();
+		textField_2.setBounds(109, 9, 174, 20);
+		panel.add(textField_2);
+		textField_2.setColumns(10);
 		
 		
-		
+	
 		
 	}
 }
