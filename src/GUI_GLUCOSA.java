@@ -10,6 +10,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.JToolBar;
 import javax.swing.border.EmptyBorder;
@@ -18,11 +19,14 @@ import javax.swing.JComboBox;
 import javax.swing.DefaultListModel;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
+import java.awt.Font;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+
+
 import javax.swing.JList;
 import javax.swing.JOptionPane;
 
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 
 
 
@@ -34,6 +38,8 @@ public class GUI_GLUCOSA extends JFrame {
 	ArrayList<paciente> lista = new ArrayList<paciente>();
 	private JTextField textField;
 	private JTextField textField_1;
+	private JTextField textField_2;
+	private JTextArea areaResultados;
 	
 	DefaultListModel<String> modelo = new DefaultListModel<>();
 	JList<String> listahistorial = new JList<>(modelo);
@@ -133,6 +139,7 @@ public class GUI_GLUCOSA extends JFrame {
 		LocalDate h = LocalDate.now();
 		
 		JComboBox<Integer> comboBox = new JComboBox<Integer>();
+		
 		comboBox.setModel(new DefaultComboBoxModel(new String[] {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31"}));
 		comboBox.setBounds(123, 105, 86, 22);
 		comboBox.setSelectedIndex(h.getDayOfMonth()-1);
@@ -195,6 +202,45 @@ public class GUI_GLUCOSA extends JFrame {
 		btnGuardar.setBounds(118, 197, 89, 23);
 		panel.add(btnGuardar);
 		
+		JLabel lblNewLabel = new JLabel("Buscador:");
+		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 12));
+		lblNewLabel.setBounds(28, 11, 71, 14);
+		panel.add(lblNewLabel);
+		
+		JButton btnNewButton = new JButton("Buscar");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String nombreBuscar = textField_2.getText().trim();
+				
+		        String resultados = "NOMBRE     VALOR     FECHA\n";
+
+		        boolean encontrado = false;
+
+		        for (paciente i : lista) {
+		            if (i.nombre.equalsIgnoreCase(nombreBuscar)) {
+		                resultados += String.format("%-12s %-12d %-15s\n", i.nombre ,    i.valor , i.fecha);
+		                encontrado = true;
+		            }
+		        }
+
+		        if (encontrado) {
+		            areaResultados.setText(resultados);
+		        } else {
+		            areaResultados.setText("No se encontraron resultados");
+		        }
+			}
+		});
+		btnNewButton.setBounds(293, 8, 88, 22);
+		panel.add(btnNewButton);
+		
+		textField_2 = new JTextField();
+		textField_2.setBounds(109, 9, 174, 20);
+		panel.add(textField_2);
+		textField_2.setColumns(10);
+		
+		areaResultados = new JTextArea();
+		areaResultados.setBounds(254, 140, 170, 198);
+		panel.add(areaResultados);
 		JPanel panelhistorial = new JPanel();
 		panelglucosa.add(panelhistorial, "historial");
 		panelhistorial.setLayout(null);
