@@ -11,6 +11,7 @@ import javax.swing.JToolBar;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JComboBox;
 import javax.swing.JButton;
+import javax.swing.JList;
 
 
 
@@ -63,11 +64,15 @@ public class GUI_GLUCOSA extends JFrame {
 		contentPane.setLayout(null);
 		
 		JToolBar toolBar = new JToolBar();
-		toolBar.setBounds(16, 11, 87, 16);
+		toolBar.setBounds(16, 11, 453, 16);
 		contentPane.add(toolBar);
 		
 		JButton btnRegistrar = new JButton("Registrar");
 		toolBar.add(btnRegistrar);
+		toolBar.addSeparator();
+		
+		JButton btnHistorial = new JButton("Historial");
+		toolBar.add(btnHistorial);
 		
 		JPanel panelglucosa = new JPanel();
 		panelglucosa.setBounds(10, 38, 459, 349);
@@ -104,14 +109,18 @@ public class GUI_GLUCOSA extends JFrame {
 		lblmg.setBounds(213, 81, 46, 14);
 		panel.add(lblmg);
 		
-		JComboBox<Integer> comboBox = new JComboBox<Integer>();
-		comboBox.setSelectedIndex(23);
-		comboBox.setBounds(121, 106, 86, 22);
-		panel.add(comboBox);
 		
 		JButton btnGuardar = new JButton("Guardar");
 		btnGuardar.setBounds(118, 197, 89, 23);
 		panel.add(btnGuardar);
+		
+		JPanel panelhistorial = new JPanel();
+		panelglucosa.add(panelhistorial, "name_148952304493500");
+		panelhistorial.setLayout(null);
+		
+		JList list = new JList();
+		list.setBounds(10, 10, 439, 329);
+		panelhistorial.add(list);
 		
 		
 		
