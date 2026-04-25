@@ -107,7 +107,7 @@ public class GUI_GLUCOSA extends JFrame {
 		panelglucosa.setLayout(new CardLayout(0, 0));
 		
 		JPanel panel = new JPanel();
-		panelglucosa.add(panel, "name_737072192421100");
+		panelglucosa.add(panel, "registro");
 		panel.setLayout(null);
 		
 		JLabel lblFecha = new JLabel("Fecha");
@@ -244,6 +244,13 @@ public class GUI_GLUCOSA extends JFrame {
 		JPanel panelhistorial = new JPanel();
 		panelglucosa.add(panelhistorial, "historial");
 		panelhistorial.setLayout(null);
+
+		btnRegistrar.addActionListener(new ActionListener() {
+		public void actionPerformed(ActionEvent e) {
+			CardLayout cl = (CardLayout) (panelglucosa.getLayout());
+			cl.show(panelglucosa, "registro");
+		}
+	});
 		
 		JList list = new JList(modelo);
 		list.setBounds(10, 10, 439, 329);
