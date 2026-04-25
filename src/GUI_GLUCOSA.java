@@ -134,7 +134,27 @@ public class GUI_GLUCOSA extends JFrame {
 		JButton btnGuardar = new JButton("Guardar");
 		btnGuardar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-
+				
+				if (textField.getText().trim().isEmpty()) {
+					JOptionPane.showMessageDialog(null, "Debes ingresar el nombre");
+		            return;
+				}
+				
+				if (textField_1.getText().trim().isEmpty()) {
+					JOptionPane.showMessageDialog(null, "Debes ingresar el valor de la glucosa");
+		            return;
+				}
+				
+				try {
+		        	int va = 0;
+		            va = Integer.parseInt(textField_1.getText());
+		        } catch (NumberFormatException cm) {
+		            JOptionPane.showMessageDialog(null, "Error: El campo 'Valor' debe ser un número (sin letras ni espacios)"
+		            ,"error",JOptionPane.ERROR_MESSAGE);
+		            textField_1.setText("");
+		            return; 
+		        }
+		        
 		        paciente pacienteNuevo;		        
 		        String nom = textField.getText();
 		        int val = Integer.parseInt(textField_1.getText());
