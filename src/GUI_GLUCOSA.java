@@ -5,8 +5,8 @@ import java.util.ArrayList;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.JToolBar;
 import javax.swing.border.EmptyBorder;
@@ -15,6 +15,7 @@ import javax.swing.JButton;
 import java.awt.Font;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+
 
 
 
@@ -27,6 +28,7 @@ public class GUI_GLUCOSA extends JFrame {
 	private JTextField textField;
 	private JTextField textField_1;
 	private JTextField textField_2;
+	private JTextArea areaResultados;
 	public class paciente {
 		String nombre;
 		int valor;
@@ -135,9 +137,9 @@ public class GUI_GLUCOSA extends JFrame {
 					
 				}
 				if (resultados.isEmpty()) {
-					JOptionPane.showMessageDialog(null, "No se encontraron resultados");
+					areaResultados.setText ("No se encontraron resultados");
 				} else {
-					JOptionPane.showMessageDialog(null, resultados);
+		         areaResultados.setText(resultados);
 				}
 			
 			}
@@ -150,8 +152,10 @@ public class GUI_GLUCOSA extends JFrame {
 		panel.add(textField_2);
 		textField_2.setColumns(10);
 		
+		areaResultados = new JTextArea();
+		areaResultados.setBounds(254, 140, 170, 198);
+		panel.add(areaResultados);
 		
-	
 		
 	}
 }
