@@ -10,8 +10,11 @@ import javax.swing.JTextField;
 import javax.swing.JToolBar;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JComboBox;
+import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JList;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 
 
@@ -23,6 +26,10 @@ public class GUI_GLUCOSA extends JFrame {
 	ArrayList<paciente> lista = new ArrayList<paciente>();
 	private JTextField textField;
 	private JTextField textField_1;
+	
+	DefaultListModel<String> modelo = new DefaultListModel<>();
+	JList<String> listahistorial = new JList<>(modelo);
+	
 	public class paciente {
 		String nombre;
 		int valor;
@@ -71,9 +78,6 @@ public class GUI_GLUCOSA extends JFrame {
 		toolBar.add(btnRegistrar);
 		toolBar.addSeparator();
 		
-		JButton btnHistorial = new JButton("Historial");
-		toolBar.add(btnHistorial);
-		
 		JPanel panelglucosa = new JPanel();
 		panelglucosa.setBounds(10, 38, 459, 349);
 		contentPane.add(panelglucosa);
@@ -115,13 +119,22 @@ public class GUI_GLUCOSA extends JFrame {
 		panel.add(btnGuardar);
 		
 		JPanel panelhistorial = new JPanel();
-		panelglucosa.add(panelhistorial, "name_148952304493500");
+		panelglucosa.add(panelhistorial, "historial");
 		panelhistorial.setLayout(null);
 		
 		JList list = new JList();
 		list.setBounds(10, 10, 439, 329);
 		panelhistorial.add(list);
 		
+		JButton btnHistorial = new JButton("Historial");
+		btnHistorial.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				CardLayout cl = (CardLayout) (panelglucosa.getLayout());
+				cl.show(panelglucosa, "historial");
+				
+			}
+		});
+		toolBar.add(btnHistorial);
 		
 		
 		
