@@ -141,7 +141,6 @@ public class GUI_GLUCOSA extends JFrame {
 				} else {
 		         areaResultados.setText(resultados);
 				}
-			
 			}
 		});
 		btnNewButton.setBounds(293, 8, 88, 22);
