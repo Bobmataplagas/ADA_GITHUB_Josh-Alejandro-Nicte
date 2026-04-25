@@ -1,6 +1,9 @@
 import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.EventQueue;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 import javax.swing.JFrame;
@@ -10,6 +13,7 @@ import javax.swing.JTextField;
 import javax.swing.JToolBar;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JComboBox;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 
 
@@ -69,6 +73,7 @@ public class GUI_GLUCOSA extends JFrame {
 		JButton btnRegistrar = new JButton("Registrar");
 		toolBar.add(btnRegistrar);
 		
+		
 		JPanel panelglucosa = new JPanel();
 		panelglucosa.setBounds(10, 38, 459, 349);
 		contentPane.add(panelglucosa);
@@ -104,17 +109,37 @@ public class GUI_GLUCOSA extends JFrame {
 		lblmg.setBounds(213, 81, 46, 14);
 		panel.add(lblmg);
 		
+		LocalDate h = LocalDate.now();
+		
 		JComboBox<Integer> comboBox = new JComboBox<Integer>();
-		comboBox.setSelectedIndex(23);
-		comboBox.setBounds(121, 106, 86, 22);
+		comboBox.setModel(new DefaultComboBoxModel(new String[] {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31"}));
+		comboBox.setBounds(123, 105, 86, 22);
+		comboBox.setSelectedIndex(h.getDayOfMonth()-1);
 		panel.add(comboBox);
+		
+		JComboBox<Integer> comboBoxMes = new JComboBox<Integer>();
+		comboBoxMes.setModel(new DefaultComboBoxModel(new String[] {"01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"}));
+		comboBoxMes.setBounds(218, 105, 86, 22);
+		comboBoxMes.setSelectedIndex(h.getMonthValue()-1);
+		panel.add(comboBoxMes);
+		
+		JComboBox<String> comboBoxAño = new JComboBox<String>();
+		comboBoxAño.setModel(new DefaultComboBoxModel(new String[] {"2020", "2021", "2022", "2023", "2024", "2025", "2026", "2027", "2028", "2029", "2030"}));
+		comboBoxAño.setBounds(314, 105, 86, 22);
+		comboBoxAño.setSelectedItem(String.valueOf(h.getYear()));
+		panel.add(comboBoxAño);
 		
 		JButton btnGuardar = new JButton("Guardar");
 		btnGuardar.setBounds(118, 197, 89, 23);
 		panel.add(btnGuardar);
 		
 		
-		
+		btnRegistrar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				CardLayout cl = (CardLayout) (panelglucosa.getLayout());
+				cl.show(panelglucosa, "registro");
+			}
+		});
 		
 		
 	}
