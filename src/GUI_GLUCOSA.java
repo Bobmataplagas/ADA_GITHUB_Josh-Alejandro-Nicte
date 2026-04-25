@@ -8,10 +8,12 @@ import java.util.ArrayList;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.JToolBar;
 import javax.swing.border.EmptyBorder;
+
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
@@ -130,6 +132,27 @@ public class GUI_GLUCOSA extends JFrame {
 		panel.add(comboBoxAño);
 		
 		JButton btnGuardar = new JButton("Guardar");
+		btnGuardar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+
+		        paciente pacienteNuevo;		        
+		        String nom = textField.getText();
+		        int val = Integer.parseInt(textField_1.getText());
+		        
+		        String dia = String.valueOf(comboBox.getSelectedItem());
+		        String mes = String.valueOf(comboBoxMes.getSelectedItem());
+		        String año = String.valueOf(comboBoxAño.getSelectedItem());
+		        String fecha = dia+"/"+mes+"/"+año;
+		        
+		        pacienteNuevo = new paciente (nom, val, fecha);
+		        lista.add(pacienteNuevo);
+		        
+		        textField.setText("");
+		        textField_1.setText("");
+		        JOptionPane.showMessageDialog(null, "Registro completado");
+				
+			}
+		});
 		btnGuardar.setBounds(118, 197, 89, 23);
 		panel.add(btnGuardar);
 		
