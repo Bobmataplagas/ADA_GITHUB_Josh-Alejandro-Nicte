@@ -15,8 +15,14 @@ import javax.swing.JToolBar;
 import javax.swing.border.EmptyBorder;
 
 import javax.swing.JComboBox;
+import javax.swing.DefaultListModel;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
+import javax.swing.JList;
+import javax.swing.JOptionPane;
+
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 
 
@@ -28,6 +34,10 @@ public class GUI_GLUCOSA extends JFrame {
 	ArrayList<paciente> lista = new ArrayList<paciente>();
 	private JTextField textField;
 	private JTextField textField_1;
+	
+	DefaultListModel<String> modelo = new DefaultListModel<>();
+	JList<String> listahistorial = new JList<>(modelo);
+	
 	public class paciente {
 		String nombre;
 		int valor;
@@ -38,6 +48,14 @@ public class GUI_GLUCOSA extends JFrame {
 			this.valor=valor;
 			this.fecha=fecha;
 		}
+
+		@Override
+		public String toString() {
+			// TODO Auto-generated method stub
+			return nombre +"  -  " +valor +"  -  " + fecha;
+		}
+		
+		
 	
 	}
 	
@@ -69,11 +87,12 @@ public class GUI_GLUCOSA extends JFrame {
 		contentPane.setLayout(null);
 		
 		JToolBar toolBar = new JToolBar();
-		toolBar.setBounds(16, 11, 87, 16);
+		toolBar.setBounds(16, 11, 453, 16);
 		contentPane.add(toolBar);
 		
 		JButton btnRegistrar = new JButton("Registrar");
 		toolBar.add(btnRegistrar);
+		toolBar.addSeparator();
 		
 		
 		JPanel panelglucosa = new JPanel();
@@ -176,7 +195,23 @@ public class GUI_GLUCOSA extends JFrame {
 		btnGuardar.setBounds(118, 197, 89, 23);
 		panel.add(btnGuardar);
 		
+		JPanel panelhistorial = new JPanel();
+		panelglucosa.add(panelhistorial, "historial");
+		panelhistorial.setLayout(null);
 		
+		JList list = new JList(modelo);
+		list.setBounds(10, 10, 439, 329);
+		panelhistorial.add(list);
+		
+		JButton btnHistorial = new JButton("Historial");
+		btnHistorial.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				CardLayout cl = (CardLayout) (panelglucosa.getLayout());
+				cl.show(panelglucosa, "historial");
+				mostrarHistorial();
+			}
+		});
+		toolBar.add(btnHistorial);
 		btnRegistrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				CardLayout cl = (CardLayout) (panelglucosa.getLayout());
@@ -184,6 +219,22 @@ public class GUI_GLUCOSA extends JFrame {
 			}
 		});
 		
+	}
+	
+	public void mostrarHistorial() {
+		modelo.clear();
 		
+		lista.sort((p1,p2)->p1.nombre.compareToIgnoreCase(p2.nombre));
+
+		String actual = ""; 
+		
+		for (paciente p : lista) {
+			if (!p.nombre.equals(actual)) {
+				modelo.addElement("--"+p.nombre+"--");
+				modelo.addElement("Tomas: ");
+				actual = p.nombre;
+			}
+		modelo.addElement("Valor: "+p.valor+" Fecha: "+p.fecha);
+		}
 	}
 }
