@@ -13,6 +13,8 @@ import javax.swing.JComboBox;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
@@ -40,6 +42,14 @@ public class GUI_GLUCOSA extends JFrame {
 			this.valor=valor;
 			this.fecha=fecha;
 		}
+
+		@Override
+		public String toString() {
+			// TODO Auto-generated method stub
+			return nombre +"  -  " +valor +"  -  " + fecha;
+		}
+		
+		
 	
 	}
 	
@@ -122,7 +132,7 @@ public class GUI_GLUCOSA extends JFrame {
 		panelglucosa.add(panelhistorial, "historial");
 		panelhistorial.setLayout(null);
 		
-		JList list = new JList();
+		JList list = new JList(modelo);
 		list.setBounds(10, 10, 439, 329);
 		panelhistorial.add(list);
 		
@@ -131,13 +141,25 @@ public class GUI_GLUCOSA extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				CardLayout cl = (CardLayout) (panelglucosa.getLayout());
 				cl.show(panelglucosa, "historial");
-				
+				mostrarHistorial();
 			}
 		});
 		toolBar.add(btnHistorial);
 		
+	}
+	
+	public void mostrarHistorial() {
+		modelo.clear();
 		
+		lista.add(new paciente("Juan",8,"fecha"));
+		lista.add(new paciente("Abel",8,"fecha"));
+		lista.add(new paciente("Abel",8,"fecha"));
+		lista.add(new paciente("Abel",8,"fecha"));
+		lista.add(new paciente("Carmela",8,"fecha"));
+		lista.add(new paciente("Benito",8,"fecha"));
 		
-		
+		lista.sort((p1,p2)->p1.nombre.compareToIgnoreCase(p2.nombre));
+
+		JOptionPane.showMessageDialog(null, lista);
 	}
 }
