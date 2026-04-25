@@ -128,19 +128,24 @@ public class GUI_GLUCOSA extends JFrame {
 		JButton btnNewButton = new JButton("Buscar");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				String nombreBuscar = textField_2.getText().toLowerCase();
-				String resultados = "";
-				for (paciente i : lista) {
-					if (i.nombre.toLowerCase().contains(nombreBuscar)) {
-						resultados += i.nombre + " " + i.valor + " " + i.fecha + "\n";
-					}
-					
-				}
-				if (resultados.isEmpty()) {
-					areaResultados.setText ("No se encontraron resultados");
-				} else {
-		         areaResultados.setText(resultados);
-				}
+				String nombreBuscar = textField_2.getText().trim();
+				
+		        String resultados = "NOMBRE     VALOR     FECHA\n";
+
+		        boolean encontrado = false;
+
+		        for (paciente i : lista) {
+		            if (i.nombre.equalsIgnoreCase(nombreBuscar)) {
+		                resultados += String.format("%-12s %-12d %-15s\n", i.nombre ,    i.valor , i.fecha);
+		                encontrado = true;
+		            }
+		        }
+
+		        if (encontrado) {
+		            areaResultados.setText(resultados);
+		        } else {
+		            areaResultados.setText("No se encontraron resultados");
+		        }
 			}
 		});
 		btnNewButton.setBounds(293, 8, 88, 22);
@@ -154,6 +159,7 @@ public class GUI_GLUCOSA extends JFrame {
 		areaResultados = new JTextArea();
 		areaResultados.setBounds(254, 140, 170, 198);
 		panel.add(areaResultados);
+		
 		
 		
 	}
